@@ -37,7 +37,7 @@ model:
   is_no_mu: true
   is_param_dim_diff: true
   epsilon: 1.0e-2
-  pretrained_model: pretrained_model/model_snapshot.pth
+  pretrained_model: pretrained_model/model_snapshot_nomu.pth
 train:
   optimizer: Adam
   lr_decay: 0.1
@@ -59,7 +59,7 @@ train:
   resume_model: 
 test:
   num_workers: 0
-  test_model: pretrained_model/model_snapshot.pth
+  test_model: pretrained_model/model_snapshot_nomu.pth
   is_test_data_diff: true
   data_path: data/regression_datasets
   file_name: housing

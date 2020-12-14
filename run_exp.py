@@ -16,6 +16,7 @@ np.set_printoptions(precision=4,linewidth=150)
 def main():
   args = parse_arguments()
   config = get_config(args.config_file)
+  # config = get_config("./config/train.yaml")
   np.random.seed(config.seed)
   torch.manual_seed(config.seed)
   torch.cuda.manual_seed_all(config.seed)

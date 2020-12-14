@@ -26,7 +26,7 @@ model:
   is_no_mu: true
   is_param_dim_diff: true
   epsilon: 1.0e-2
-  pretrained_model: pretrained_model/model_snapshot.pth
+  pretrained_model: pretrained_model/model_snapshot_nomu.pth
 dataset:
   name: stybtang10_5runs_200iters
 bo:
