@@ -2,7 +2,7 @@
 exp_name: train
 exp_dir: exp/log_train
 runner: GpSM2AttRunner
-use_gpu: false
+use_gpu: true
 gpus: [0]
 seed: 222
 subsample_size: 5000
@@ -16,7 +16,8 @@ dataset:
   output_dim: 2
   epsilon: 1.0e-2
 model:
-  name: GpSMDoubleAttNoMu
+#  name: GpSMDoubleAttNoMu
+  name: GpSMDoubleAtt
   input_dim: 1
   num_attentions1: 8
   num_attentions2: 8
@@ -34,7 +35,8 @@ model:
   dropout: 0.1
   lambda_KL: 1.0
   num_mix: 10
-  is_no_mu: true
+#  is_no_mu: true
+  is_no_mu: false
   is_param_dim_diff: true
   epsilon: 1.0e-2
 train:
@@ -64,7 +66,8 @@ test:
   file_name: housing
   seed: 10
   num_data: 2000
-  is_no_mu: true
+#  is_no_mu: true
+  is_no_mu: false
   mll_opt: false
   train_iter: 10
   warm_start: false

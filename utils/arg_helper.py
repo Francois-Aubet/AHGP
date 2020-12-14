@@ -12,8 +12,8 @@ def parse_arguments():
       '-c',
       '--config_file',
       type=str,
-      default="config/resnet101_cifar.json",
-      required=True,
+      default="./config/train.yaml",
+      # required=True,
       help="Path of config file")
   parser.add_argument(
       '-l',
