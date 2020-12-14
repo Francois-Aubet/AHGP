@@ -2,7 +2,7 @@ import torch
 from easydict import EasyDict as edict
 import yaml
 from ahgp.nn import *
-from ahgp.gp.gp_helper import cal_kern_spec_mix_nomu_sep, cal_marg_likelihood_single, GP_noise
+from ahgp.gp.gp_helper import cal_kern_spec_mix_nomu_sep, cal_marg_likelihood_single, GP_noise, cal_kern_spec_mix_sep
 
 def predict(x_t,y_t,x_v,model_config_filename,use_gpu=False):
 
