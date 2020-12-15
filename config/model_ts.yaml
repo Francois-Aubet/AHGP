@@ -20,4 +20,4 @@ num_mix: 10 # number of Gaussian mixtures for each dimension
 is_no_mu: false # if the Gaussian mixtures have zero means
 is_param_dim_diff: true # if the different dimensions have different spectral density
 epsilon: 1.0e-2 #noise variance of the GP
-pretrained_model: ../pretrained_model/model_snapshot_ts.pth
+pretrained_model: ./pretrained_model/model_snapshot_ts.pth
