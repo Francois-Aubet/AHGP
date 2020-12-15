@@ -19,8 +19,8 @@ torch.set_printoptions(precision=4,linewidth=150)
 np.set_printoptions(precision=4,linewidth=150)
 save_dir = './data/synthetic/gp_synthetic_2_15_dim_30p_5k/'
 
-device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
-# device = torch.device('cpu')
+# device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
+device = torch.device('cpu')
 
 if not os.path.exists(save_dir):
     os.mkdir(save_dir)
@@ -31,13 +31,14 @@ def is_pos_def(X):
     if_psd = torch.all(eig_values[:,0]>0)
     return if_psd
 
-def gen_data(min_dim = 2,
-             max_dim = 15,
+def gen_data(min_dim = 1,
+             max_dim = 1,
              min_num_mix = 1,
-             max_num_mix = 10,
-             intensity_pt = 30,
+             max_num_mix = 6,
+             intensity_pt = 300,
              num_gps=5000,
              seed=111,
+             max_mu = 30,
              base_lengthscale = 0.1,
              max_lengthscale=1.5,
              min_lengthscale=0.05,
@@ -59,8 +60,10 @@ def gen_data(min_dim = 2,
     for ii in tqdm(range(num_gps)):
         data_dict = {}
         # generate two seperate datasets, X and X_2
-        X = (npr.rand(N[ii], D[ii])-0.5)*2
-        X_2 = (npr.rand(N[ii], D[ii])-0.5)*2
+        # X = (npr.rand(N[ii], D[ii])-0.5)*2
+        # X_2 = (npr.rand(N[ii], D[ii])-0.5)*2
+        X = np.array([np.linspace(0, N[ii], N[ii])] * D[ii]).T
+        X_2 = np.array([np.linspace(0, N[ii], N[ii])] * D[ii]).T
         X, X_2, _, _ = standardize(X, X_2)
         X = X * base_lengthscale
         X_2 = X_2 * base_lengthscale
@@ -73,6 +76,9 @@ def gen_data(min_dim = 2,
         var_small = 1/length_large**2/(2*math.pi**2)
         var = is_length_large[:,0]*var_normal+is_length_large[:,1]*var_small
 
+        # the above var generation some time generate very small values (around 10^-8), which is not what we want, so:
+        var = np.abs(np.random.randn(*var.shape)) + 0.01
+
         var_torch = torch.from_numpy(var).float().to(device)
         weights_torch = torch.from_numpy(weights).float().to(device)
 
@@ -82,7 +88,9 @@ def gen_data(min_dim = 2,
             X_2_torch = torch.from_numpy(X_2).float().to(device)
             kern_matrix_X2 = cal_kern_spec_mix_nomu_sep(X_2_torch, X_2_torch, var_torch, weights_torch)
         else:
-            mu = np.abs(np.random.randn(*var.shape))
+            # mu = np.abs(np.random.randn(*var.shape))
+            mu = np.random.rand(*var.shape) * max_mu
+
             mu_torch = torch.from_numpy(mu).float().to(device)
 
             X_torch = torch.from_numpy(X).float().to(device)

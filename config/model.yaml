@@ -1,5 +1,5 @@
 ---
-name: GpSMDoubleAttNoMu # model class name
+name: GpSMDoubleAtt # model class name
 input_dim: 1 # it is 1 because each dimension is treated separately at first
 num_attentions1: 8
 num_attentions2: 8
@@ -17,7 +17,7 @@ output_dim: 1
 dropout: 0.1
 lambda_KL: 1.0
 num_mix: 10 # number of Gaussian mixtures for each dimension
-is_no_mu: true # if the Gaussian mixtures have zero means
+is_no_mu: false # if the Gaussian mixtures have zero means
 is_param_dim_diff: true # if the different dimensions have different spectral density
 epsilon: 1.0e-2 #noise variance of the GP
-pretrained_model: ../pretrained_model/model_snapshot_nomu.pth
+pretrained_model: ../pretrained_model/model_snapshot.pth
