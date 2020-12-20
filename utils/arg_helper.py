@@ -13,7 +13,7 @@ def parse_arguments():
       '--config_file',
       type=str,
       default="./config/train.yaml",
-      # required=True,
+      required=True,
       help="Path of config file")
   parser.add_argument(
       '-l',
